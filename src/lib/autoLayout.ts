@@ -26,6 +26,9 @@ export function applyAutoLayout<N extends Node, E extends Edge>(
     ranker: "network-simplex",
     // greedy acyclicer handles diagrams where connections loop back
     acyclicer: "greedy",
+    // align nodes to the upper-left of their bounding box within each rank
+    // so connected nodes sit at a consistent baseline — keeps bezier edges flat
+    align: "UL",
     // generous spacing gives the router room to separate parallel edges
     ranksep: 140,
     nodesep: 100,

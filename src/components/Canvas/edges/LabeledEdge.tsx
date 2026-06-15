@@ -1,15 +1,21 @@
 "use client";
-import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath, type EdgeProps, useReactFlow } from "@xyflow/react";
+import { BaseEdge, EdgeLabelRenderer, getBezierPath, type EdgeProps, useReactFlow } from "@xyflow/react";
+
 export function LabeledEdge(props: EdgeProps) {
   const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, label, selected, markerEnd, style } = props;
   const { setEdges } = useReactFlow();
-  const [path, lx, ly] = getSmoothStepPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, borderRadius: 8 });
+
+  // getBezierPath draws a smooth direct curve between nodes — no right-angle
+  // bends — so lines stay as straight as the node positions allow.
+  const [path, lx, ly] = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
+
   const edit = () => {
     const next = window.prompt("Label this connection:", typeof label === "string" ? label : "");
     if (next === null) return;
     const t = next.trim();
     setEdges((es) => es.map((e) => e.id === id ? { ...e, label: t.length ? t : undefined, data: { ...(e.data ?? {}), label: t.length ? t : undefined } } : e));
   };
+
   const stroke = selected ? "#007DC1" : "#64748b";
   return (
     <>
