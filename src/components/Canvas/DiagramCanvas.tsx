@@ -10,13 +10,14 @@ import { OktaComponentNode } from "./nodes/OktaComponentNode";
 import { OktaLogoNode } from "./nodes/OktaLogoNode";
 import { CustomerNode } from "./nodes/CustomerNode";
 import { ResourceNode } from "./nodes/ResourceNode";
+import { UserDeviceNode } from "./nodes/UserDeviceNode";
 import { LabeledEdge } from "./edges/LabeledEdge";
 import { ContextMenu, type ContextMenuState } from "./ContextMenu";
 import { getComponentDefinition } from "@/lib/componentRegistry";
 import { DRAG_MIME } from "@/lib/dragMime";
 import type { DiagramEdgeData, DiagramNodeData, VisibilityMap } from "@/lib/types";
 
-const nodeTypes: NodeTypes = { "okta-component": OktaComponentNode, "okta-logo": OktaLogoNode, customer: CustomerNode, resource: ResourceNode };
+const nodeTypes: NodeTypes = { "okta-component": OktaComponentNode, "okta-logo": OktaLogoNode, customer: CustomerNode, resource: ResourceNode, "user-device": UserDeviceNode };
 const edgeTypes: EdgeTypes = { labeled: LabeledEdge };
 const defaultEdge = { type: "labeled", markerEnd: { type: MarkerType.ArrowClosed, color: "#64748b", width: 18, height: 18 } };
 

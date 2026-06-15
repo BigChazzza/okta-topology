@@ -4,6 +4,72 @@ import type { ComponentDefinition } from "./types";
 const OKTA = "#007DC1";
 
 export const COMPONENT_REGISTRY: ComponentDefinition[] = [
+  // ── Users & Devices ──────────────────────────────────────────────────────
+  {
+    id: "end-user",
+    label: "End User",
+    category: "users-devices",
+    fallbackMonogram: "U",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "admin-user",
+    label: "Administrator",
+    category: "users-devices",
+    fallbackMonogram: "ADM",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "guest-user",
+    label: "Guest / External User",
+    category: "users-devices",
+    fallbackMonogram: "GST",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "nhi",
+    label: "Non-Human Identity",
+    category: "users-devices",
+    fallbackMonogram: "NHI",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "managed-device",
+    label: "Managed Device",
+    category: "users-devices",
+    fallbackMonogram: "MDV",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "unmanaged-device",
+    label: "Unmanaged Device",
+    category: "users-devices",
+    fallbackMonogram: "UDV",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "mobile-device",
+    label: "Mobile Device",
+    category: "users-devices",
+    fallbackMonogram: "MOB",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+  {
+    id: "desktop",
+    label: "Desktop / Workstation",
+    category: "users-devices",
+    fallbackMonogram: "DKT",
+    color: "#4F46E5",
+    nodeType: "user-device",
+  },
+
   // ── Resources ───────────────────────────────────────────────────────────
   {
     id: "oin-application",

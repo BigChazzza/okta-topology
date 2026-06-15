@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const categoryEnum = z.enum([
   "customer",
+  "users-devices",
   "resources",
   "core-identity",
   "customer-identity",
@@ -44,6 +45,7 @@ const edgeSchema = z.object({
 
 const visibilitySchema = z.object({
   customer: z.boolean().default(true),
+  "users-devices": z.boolean().default(true),
   resources: z.boolean().default(true),
   "core-identity": z.boolean().default(true),
   "customer-identity": z.boolean().default(true),

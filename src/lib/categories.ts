@@ -9,6 +9,12 @@ export interface CategoryMeta {
 
 export const SIDEBAR_CATEGORIES: CategoryMeta[] = [
   {
+    key: "users-devices",
+    label: "Users & Devices",
+    description: "End users, admins, non-human identities and their devices",
+    color: "#4F46E5",
+  },
+  {
     key: "resources",
     label: "Resources",
     description: "Applications and API endpoints that Okta secures",

@@ -13,6 +13,7 @@ export const INITIAL_NODES: SerializedNode[] = [
 
 export const DEFAULT_VISIBILITY: VisibilityMap = {
   customer: true,
+  "users-devices": true,
   resources: true,
   "core-identity": true,
   "customer-identity": true,

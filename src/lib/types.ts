@@ -1,5 +1,6 @@
 export type CategoryKey =
   | "customer"
+  | "users-devices"
   | "resources"
   | "core-identity"
   | "customer-identity"
@@ -13,6 +14,7 @@ export type CategoryKey =
 export type NodeKind =
   | "okta-component"
   | "resource"
+  | "user-device"
   | "external"
   | "okta-logo"
   | "customer";
