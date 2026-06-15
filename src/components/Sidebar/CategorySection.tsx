@@ -6,7 +6,7 @@ import type { CategoryMeta } from "@/lib/categories";
 import type { ComponentDefinition } from "@/lib/types";
 interface Props { meta: CategoryMeta; components: ComponentDefinition[]; visible: boolean; onToggleVisible: () => void; placedCounts: Record<string, number>; }
 export function CategorySection({ meta, components, visible, onToggleVisible, placedCounts }: Props) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const VI = visible ? Eye : EyeOff;
   const CI = open ? ChevronDown : ChevronRight;
   const total = components.reduce((s, c) => s + (placedCounts[c.id] ?? 0), 0);
