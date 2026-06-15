@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+html, body { height: 100%; font-family: var(--font-sans), system-ui, sans-serif; }
+.react-flow__pane { cursor: grab; }
+.react-flow__pane.draggable.dragging { cursor: grabbing; }
+.dark .react-flow__background { background: #0f172a; }
+.dark .react-flow__controls, .dark .react-flow__minimap { background: #1e293b; }
+.dark .react-flow__controls button { background: #1e293b; color: #e2e8f0; border-bottom-color: #334155; }
+.dark .react-flow__controls button:hover { background: #334155; }
+.dark .react-flow__minimap-mask { fill: rgba(15,23,42,0.6); }
