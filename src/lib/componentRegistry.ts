@@ -4,6 +4,48 @@ import type { ComponentDefinition } from "./types";
 const OKTA = "#007DC1";
 
 export const COMPONENT_REGISTRY: ComponentDefinition[] = [
+  // ── Resources ───────────────────────────────────────────────────────────
+  {
+    id: "oin-application",
+    label: "OIN Application",
+    category: "resources",
+    fallbackMonogram: "OIN",
+    color: "#059669",
+    nodeType: "resource",
+  },
+  {
+    id: "custom-application",
+    label: "Custom Application",
+    category: "resources",
+    fallbackMonogram: "APP",
+    color: "#059669",
+    nodeType: "resource",
+  },
+  {
+    id: "api-endpoint",
+    label: "API Endpoint",
+    category: "resources",
+    fallbackMonogram: "API",
+    color: "#059669",
+    nodeType: "resource",
+  },
+  {
+    id: "saml-application",
+    label: "SAML Application",
+    category: "resources",
+    fallbackMonogram: "SAML",
+    color: "#059669",
+    nodeType: "resource",
+  },
+  {
+    id: "oidc-application",
+    label: "OIDC Application",
+    category: "resources",
+    fallbackMonogram: "OIDC",
+    color: "#059669",
+    nodeType: "resource",
+  },
+
   // ── Customer (config-driven, not in sidebar) ────────────────────────────
   {
     id: "customer",

@@ -9,6 +9,12 @@ export interface CategoryMeta {
 
 export const SIDEBAR_CATEGORIES: CategoryMeta[] = [
   {
+    key: "resources",
+    label: "Resources",
+    description: "Applications and API endpoints that Okta secures",
+    color: "#059669",
+  },
+  {
     key: "core-identity",
     label: "Core Identity",
     description: "Universal Directory, SSO, MFA, Lifecycle, Workflows",
