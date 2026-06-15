@@ -33,7 +33,12 @@ function Inner({ configUrl }: Props) {
     return () => ctrl.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated, configUrl]);
-  const onAutoLayout = useCallback(() => { setNodes((n) => applyAutoLayout(n, edges)); setTimeout(() => fitView({ padding: 0.2 }), 50); }, [edges, setNodes, fitView]);
+  const onAutoLayout = useCallback(() => {
+    const result = applyAutoLayout(nodes, edges);
+    setNodes(result.nodes);
+    setEdges(result.edges);
+    setTimeout(() => fitView({ padding: 0.2 }), 50);
+  }, [nodes, edges, setNodes, setEdges, fitView]);
   const onExportImage = useCallback(async (format: "png" | "svg") => {
     const el = document.querySelector<HTMLElement>(".react-flow"); if (!el) return;
     const filter = (n: Element) => !n.classList?.contains("react-flow__minimap") && !n.classList?.contains("react-flow__controls");

@@ -11,25 +11,42 @@ function nodeSize(n: Node): { w: number; h: number } {
   };
 }
 
+/**
+ * Given the centre-to-centre vector from source to target, return the handle
+ * pair that produces the straightest possible edge:
+ *   - Primarily horizontal → exit right/left, enter left/right
+ *   - Primarily vertical   → exit bottom/top, enter top/bottom
+ */
+function optimalHandles(
+  sx: number, sy: number,
+  tx: number, ty: number,
+): { sourceHandle: string; targetHandle: string } {
+  const dx = tx - sx;
+  const dy = ty - sy;
+  if (Math.abs(dx) >= Math.abs(dy)) {
+    return dx >= 0
+      ? { sourceHandle: "right", targetHandle: "left" }
+      : { sourceHandle: "left",  targetHandle: "right" };
+  }
+  return dy >= 0
+    ? { sourceHandle: "bottom", targetHandle: "top" }
+    : { sourceHandle: "top",    targetHandle: "bottom" };
+}
+
 export function applyAutoLayout<N extends Node, E extends Edge>(
   nodes: N[],
   edges: E[],
   direction: "LR" | "TB" = "TB",
-): N[] {
-  if (nodes.length === 0) return nodes;
+): { nodes: N[]; edges: E[] } {
+  if (nodes.length === 0) return { nodes, edges };
 
   const g = new Dagre.graphlib.Graph({ multigraph: false, compound: false });
   g.setDefaultEdgeLabel(() => ({}));
   g.setGraph({
     rankdir: direction,
-    // network-simplex produces the fewest edge crossings of dagre's three rankers
     ranker: "network-simplex",
-    // greedy acyclicer handles diagrams where connections loop back
     acyclicer: "greedy",
-    // align nodes to the upper-left of their bounding box within each rank
-    // so connected nodes sit at a consistent baseline — keeps bezier edges flat
     align: "UL",
-    // generous spacing gives the router room to separate parallel edges
     ranksep: 140,
     nodesep: 100,
     edgesep: 60,
@@ -41,19 +58,35 @@ export function applyAutoLayout<N extends Node, E extends Edge>(
     const { w, h } = nodeSize(n);
     g.setNode(n.id, { width: w, height: h });
   });
-
   edges.forEach((e) => {
-    if (g.hasNode(e.source) && g.hasNode(e.target)) {
-      g.setEdge(e.source, e.target);
-    }
+    if (g.hasNode(e.source) && g.hasNode(e.target)) g.setEdge(e.source, e.target);
   });
 
   Dagre.layout(g);
 
-  return nodes.map((n) => {
+  // Dagre stores the node centre — capture it for handle assignment below
+  const centres = new Map<string, { x: number; y: number }>();
+  nodes.forEach((n) => {
+    const pos = g.node(n.id);
+    if (pos) centres.set(n.id, { x: pos.x, y: pos.y });
+  });
+
+  const newNodes = nodes.map((n) => {
     const pos = g.node(n.id);
     if (!pos) return n;
     const { w, h } = nodeSize(n);
     return { ...n, position: { x: pos.x - w / 2, y: pos.y - h / 2 } };
   });
+
+  // Re-assign each edge's handles based on the post-layout relative positions
+  // so every connection exits and enters from the side that keeps it straightest
+  const newEdges = edges.map((e) => {
+    const sc = centres.get(e.source);
+    const tc = centres.get(e.target);
+    if (!sc || !tc) return e;
+    const { sourceHandle, targetHandle } = optimalHandles(sc.x, sc.y, tc.x, tc.y);
+    return { ...e, sourceHandle, targetHandle };
+  });
+
+  return { nodes: newNodes, edges: newEdges as E[] };
 }
